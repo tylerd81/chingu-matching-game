@@ -1,33 +1,57 @@
-.App {
-  text-align: center;
+@import url("https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap");
+
+:root {
+  --bg-color: #f2e7d0;
+  --logo-color: #dd6616;
+  --card-front-color: #ffcc5e;
+  --card-back-color: #d67e55;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+body {
+  font-family: "Luckiest Guy", sans-serif;
+  background-color: var(--bg-color);
+}
+
+.game-logo {
+  color: var(--logo-color);
+  font-size: 4rem;
+}
+
+.card {
+  background-color: var(--card-back-color);
+  color: var(--card-front-color);
+  height: 100%;
+}
+
+.container {
+  width: 65%;
+  margin: 0 auto;
+}
+
+.game-board {
+  width: 100%;
+  display: grid;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-content: center;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr); /*.25fr;*/
+  grid-gap: 5px;
+  height: 100vh;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (max-width: 700px) {
+  .container {
+    width: 100vw;
+    margin: 0;
   }
-  to {
-    transform: rotate(360deg);
+  .game-board {
+    grid-template-rows: repeat(4, 125px);
+    grid-template-columns: repeat(4, 125px);
   }
 }
