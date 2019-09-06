@@ -1,8 +1,8 @@
 import React from "react";
 import Card from "./Card";
 
-const GameBoard = ({ cards, cardClickHandler }) => {
-  const gameCards = cards.map((card, index) => {
+const GameBoard = ({ deck, cardClickHandler }) => {
+  const cards = deck.map((card, index) => {
     return (
       <Card
         key={index}
@@ -14,7 +14,7 @@ const GameBoard = ({ cards, cardClickHandler }) => {
     );
   });
 
-  return <div className="game-board">{gameCards}</div>;
+  return <div className="game-board">{cards}</div>;
 };
 
 export default GameBoard;

@@ -27,6 +27,7 @@ body {
   background-color: var(--card-back-color);
   color: var(--card-front-color);
   height: 100%;
+  text-align: center;
 }
 
 .container {
