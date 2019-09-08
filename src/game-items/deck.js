@@ -1,26 +1,37 @@
 // replace the strings with the actual image names
+import eye from "../images/eye_large.png";
+import red_needle from "../images/red_needle_large.png";
+import green_needle from "../images/green_needle_large.png";
 
 const images = [
-  "pumpkin",
-  "blackcat",
-  "witch",
-  "ghost",
-  "bat",
-  "candycorn",
-  "mask",
-  "zombie"
+  eye,
+  red_needle,
+  green_needle,
+  eye,
+  eye,
+  eye,
+  eye,
+  eye
+  // "pumpkin",
+  // "blackcat",
+  // "witch",
+  // "ghost",
+  // "bat",
+  // "candycorn",
+  // "mask",
+  // "zombie"
 ];
+
+// the deck is an array of objects of the form:
+// { image, value, index, faceUp }
+// index is the position of the card in the array.
+
+// value is the actual value of the card that is used to determine if
+// two cards match. There are two of each card in the deck, so there are
+// always two cards with the same value.
 
 function createDeck() {
   const cards = [];
-  // let value = 0;
-  // images.forEach((image, index) => {
-  //   //create two cards for each different image
-  //   cards.push({ image, value, index, faceUp: false });
-  //   if (index % 2 === 0) {
-  //     value++; // change the value every two cards
-  //   }
-  // });
 
   let cardIndex = 0;
   let cardValue = 0;

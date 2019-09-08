@@ -4,7 +4,7 @@
   --bg-color: #f2e7d0;
   --logo-color: #dd6616;
   --card-front-color: #ffcc5e;
-  --card-back-color: #d67e55;
+  --card-back-color: #1a1918;
 }
 
 * {
@@ -24,10 +24,21 @@ body {
 }
 
 .card {
-  background-color: var(--card-back-color);
-  color: var(--card-front-color);
   height: 100%;
   text-align: center;
+}
+
+.card-face-up {
+  background-color: var(--card-back-color);
+}
+
+.card-face-down {
+  background-color: var(--card-front-color);
+}
+
+.card-face-up-image {
+  width: 100%;
+  height: 100%;
 }
 
 .container {

@@ -24,7 +24,10 @@ function App() {
   // Handler for when a card is clicked. It increments the number of clicks
   // and then flips over the clicked card.
   const cardClick = cardIndex => {
-    //TODO: check if card is already flipped over: if so just return
+    //check if card is already flipped over: if so just return
+    if (deck[cardIndex].faceUp === true) {
+      return;
+    }
 
     setNumClicks(numClicks + 1);
     setCardsClicked([...cardsClicked, cardIndex]);
