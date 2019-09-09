@@ -2,6 +2,7 @@
 import eye from "../images/eye_large.png";
 import red_needle from "../images/red_needle_large.png";
 import green_needle from "../images/green_needle_large.png";
+//TODO: is import the right way for this?
 
 const images = [
   eye,

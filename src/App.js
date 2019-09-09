@@ -3,6 +3,8 @@ import Container from "./components/layout/Container";
 import GameBoard from "./components/GameBoard";
 import createDeck from "./game-items/deck";
 
+// TODO: add the PropTypes
+
 import "./App.css";
 
 function App() {
@@ -11,6 +13,10 @@ function App() {
 
   // cardsClicked is an array used to keep track of the index of the cards that
   // are clicked.
+
+  // TODO: change cardsClicked to an object: {firstClick:1, secondClick:5} instead
+  // of using an array.
+
   let [cardsClicked, setCardsClicked] = useState([]);
   let [numClicks, setNumClicks] = useState(0);
 
@@ -29,9 +35,6 @@ function App() {
       return;
     }
 
-    setNumClicks(numClicks + 1);
-    setCardsClicked([...cardsClicked, cardIndex]);
-
     console.log(`card ${cardIndex} clicked`);
     const updatedDeck = deck.map(card => {
       if (card.index === cardIndex) {
@@ -40,13 +43,13 @@ function App() {
       return card;
     });
     setDeck(updatedDeck);
+    setNumClicks(numClicks + 1);
+    setCardsClicked([...cardsClicked, cardIndex]);
   };
 
   const checkForMatch = () => {
     console.log(cardsClicked);
     if (numClicks === 2) {
-      console.log(numClicks);
-
       const firstCard = deck[cardsClicked[0]];
       const secondCard = deck[cardsClicked[1]];
 
@@ -55,6 +58,10 @@ function App() {
       } else {
         console.log("Cards don't match");
         //set the flipped cards back over
+        // TODO: this is causing the CSS animation to be skipped.
+        // When a square that doesn't match is clicked, this sets the cards back
+        // to being face down. But the second card isn't shown at all.
+        // there needs to be some sort of delay so that the mismatched card is shown
         setDeck(
           deck.map(card => {
             if (

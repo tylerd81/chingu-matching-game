@@ -25,7 +25,23 @@ body {
 
 .card {
   height: 100%;
+  width: 100%;
   text-align: center;
+
+  position: relative;
+}
+
+.card-face {
+  border: solid 1px black;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  backface-visibility: hidden;
+  position: absolute;
+  transition: transform 1s linear;
+}
+.card-flipped {
+  transform: rotateY(180deg);
 }
 
 .card-face-up {
