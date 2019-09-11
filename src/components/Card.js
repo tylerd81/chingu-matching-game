@@ -7,30 +7,25 @@ const Card = ({ image, faceUp, cardClickHandler, index }) => {
     The card flip is based on the tutorial from 
     https://3dtransforms.desandro.com/card-flip
   */
+
   return (
     <div className="card" onClick={clicked}>
-      <div className={faceUp ? "card-face" : "card-face card-flipped"}>
+      <div
+        className={
+          faceUp ? "card-face card-front" : "card-face card-front card-flipped"
+        }
+      >
         Front
       </div>
-      <div className={faceUp ? "card-face card-flipped" : "card-face"}>
+      <div
+        className={
+          faceUp ? "card-face card-back card-flipped" : "card-face card-back"
+        }
+      >
         Back
       </div>
     </div>
   );
-
-  // if (faceUp) {
-  //   return (
-  //     <div onClick={clicked} className="card card-face-up">
-  //       <img className="card-face-up-image" src={image} />
-  //     </div>
-  //   );
-  // } else {
-  //   return (
-  //     <div onClick={clicked} className="card card-face-down">
-  //       <h3>Card</h3>
-  //     </div>
-  //   );
-  // }
 };
 
 export default Card;

@@ -10,6 +10,7 @@ import "./App.css";
 function App() {
   const gameDeck = createDeck();
   const [deck, setDeck] = useState(gameDeck);
+  const transitionDelay = 1500; // number of miliseconds for the card flip transition
 
   // cardsClicked is an array used to keep track of the index of the cards that
   // are clicked.
@@ -56,23 +57,22 @@ function App() {
       if (firstCard.value === secondCard.value) {
         console.log("Cards Are A Match!");
       } else {
-        console.log("Cards don't match");
         //set the flipped cards back over
-        // TODO: this is causing the CSS animation to be skipped.
-        // When a square that doesn't match is clicked, this sets the cards back
-        // to being face down. But the second card isn't shown at all.
-        // there needs to be some sort of delay so that the mismatched card is shown
-        setDeck(
-          deck.map(card => {
-            if (
-              card.index === firstCard.index ||
-              card.index === secondCard.index
-            ) {
-              card.faceUp = false;
-            }
-            return card;
-          })
-        );
+        // use setTimeout() so that the CSS transition has time to finish. Otherwise
+        // the state is just set right away and the second card never flips over.
+        setTimeout(() => {
+          setDeck(
+            deck.map(card => {
+              if (
+                card.index === firstCard.index ||
+                card.index === secondCard.index
+              ) {
+                card.faceUp = false;
+              }
+              return card;
+            })
+          );
+        }, transitionDelay);
       }
       setNumClicks(0);
       setCardsClicked([]);

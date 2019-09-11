@@ -29,6 +29,7 @@ body {
   text-align: center;
 
   position: relative;
+  perspective: 900px;
 }
 
 .card-face {
@@ -38,17 +39,19 @@ body {
   text-align: center;
   backface-visibility: hidden;
   position: absolute;
-  transition: transform 1s linear;
+  transition: transform 1.5s;
+  /* transform-style: preserve-3d; */
 }
+
 .card-flipped {
   transform: rotateY(180deg);
 }
 
-.card-face-up {
+.card-back {
   background-color: var(--card-back-color);
 }
 
-.card-face-down {
+.card-front {
   background-color: var(--card-front-color);
 }
 
