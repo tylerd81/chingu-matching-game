@@ -1,27 +1,4 @@
-// replace the strings with the actual image names
-import eye from "../images/eye_large.png";
-import red_needle from "../images/red_needle_large.png";
-import green_needle from "../images/green_needle_large.png";
-//TODO: is import the right way for this?
-
-const images = [
-  eye,
-  red_needle,
-  green_needle,
-  eye,
-  eye,
-  eye,
-  eye,
-  eye
-  // "pumpkin",
-  // "blackcat",
-  // "witch",
-  // "ghost",
-  // "bat",
-  // "candycorn",
-  // "mask",
-  // "zombie"
-];
+const images = ["👻", "💀", "🐭", "⚰️", "🦇", "🧟‍", "👽", "🧛‍"];
 
 // the deck is an array of objects of the form:
 // { image, value, index, faceUp }
@@ -56,7 +33,21 @@ function createDeck() {
     cardValue++;
   }
 
-  return cards;
+  return shuffle(cards);
 }
 
+function shuffle(deck) {
+  const cards = [...deck];
+
+  let count = cards.length;
+
+  while (count > 0) {
+    let rand = Math.floor(Math.random() * count);
+    let temp = cards[rand];
+    cards[rand] = cards[count - 1]; //move last item into chosen spot
+    cards[count - 1] = temp; // move chosen item to end of array
+    count--;
+  }
+  return cards;
+}
 export default createDeck;

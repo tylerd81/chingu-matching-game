@@ -4,7 +4,8 @@
   --bg-color: #f2e7d0;
   --logo-color: #dd6616;
   --card-front-color: #ffcc5e;
-  --card-back-color: #1a1918;
+  --card-back-color: #375f92;
+  --card-back-fg-color: white;
 }
 
 * {
@@ -33,13 +34,19 @@ body {
 }
 
 .card-face {
-  border: solid 1px black;
+  border: solid 5px black;
+  border-radius: 10px;
   height: 100%;
   width: 100%;
   text-align: center;
   backface-visibility: hidden;
   position: absolute;
   transition: transform 1.5s;
+  font-size: 7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
   /* transform-style: preserve-3d; */
 }
 
@@ -49,6 +56,7 @@ body {
 
 .card-back {
   background-color: var(--card-back-color);
+  color: var(--card-back-fg-color);
 }
 
 .card-front {
@@ -80,6 +88,9 @@ body {
   .container {
     width: 100vw;
     margin: 0;
+  }
+  .card-face {
+    font-size: 5rem;
   }
   .game-board {
     grid-template-rows: repeat(4, 125px);
