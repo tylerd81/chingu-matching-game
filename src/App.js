@@ -3,9 +3,16 @@ import Container from "./components/layout/Container";
 import GameBoard from "./components/GameBoard";
 import createDeck from "./game-items/deck";
 import Scoreboard from "./components/Scoreboard";
+import ControlPanel from "./components/layout/ControlPanel";
+import NewGameButton from "./components/NewGameButton";
 
 // TODO: add the PropTypes
 // TODO: use context to clean this up
+// TODO: make control panel look nicer
+// TODO: show when the game is won
+// TODO: rating for when you finish
+// TODO: An "I Give Up!" button
+
 import "./App.css";
 
 function App() {
@@ -18,6 +25,7 @@ function App() {
   let [cardsClicked, setCardsClicked] = useState([]);
   let [numClicks, setNumClicks] = useState(0);
   let [score, setScore] = useState({ numMatches: 0, attempts: 0 });
+  let [gameBoardVisible, setGameBoardVisible] = useState(true);
 
   // check for a match after 2 cards are clicked
   useEffect(() => {
@@ -71,11 +79,35 @@ function App() {
     }
   };
 
+  const startNewGame = () => {
+    setGameBoardVisible(false);
+    resetNumClicks();
+    setDeck(createDeck());
+    resetScore();
+    setTimeout(() => setGameBoardVisible(true), 500);
+  };
+
+  const resetScore = () => {
+    setScore({ numMatches: 0, attempts: 0 });
+  };
+
+  const resetNumClicks = () => {
+    setCardsClicked([]);
+    setNumClicks(0);
+  };
+
   return (
     <Container>
-      <h1 className="game-logo">Matching Game</h1>
-      <Scoreboard matches={score.numMatches} attempts={score.attempts} />
-      <GameBoard deck={deck} cardClickHandler={cardClick} />
+      <ControlPanel>
+        <h1 className="game-logo">Matching Game</h1>
+        <Scoreboard matches={score.numMatches} attempts={score.attempts} />
+        <NewGameButton newGameHandler={startNewGame} />
+      </ControlPanel>
+      <GameBoard
+        deck={deck}
+        cardClickHandler={cardClick}
+        visible={gameBoardVisible}
+      />
     </Container>
   );
 }

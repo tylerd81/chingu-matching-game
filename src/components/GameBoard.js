@@ -1,7 +1,15 @@
 import React from "react";
 import Card from "./Card";
 
-const GameBoard = ({ deck, cardClickHandler }) => {
+const GameBoard = ({ deck, cardClickHandler, visible }) => {
+  if (!visible) {
+    return (
+      <div className="game-board game-board-hidden">
+        <p>Shuffling...</p>
+      </div>
+    );
+  }
+
   const cards = deck.map((card, index) => {
     return (
       <Card
