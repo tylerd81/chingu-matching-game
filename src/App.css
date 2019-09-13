@@ -4,8 +4,8 @@
 :root {
   --bg-color: #f2e7d0;
   --logo-color: #dd6616;
-  --card-front-color: #ffcc5e;
-  --card-back-color: #e65b1a;
+  --card-front-color: #a668b6;
+  --card-back-color: #a2b8d4;
   --card-back-fg-color: #1d1c1c;
   --control-bg-color: white;
 }
@@ -123,6 +123,7 @@ body {
   padding: 0.5rem 1rem;
   display: block;
   width: 100%;
+  margin: 5px 0;
 }
 
 .game-button:active {
@@ -131,27 +132,43 @@ body {
 
 @media (max-width: 700px) {
   .container {
-    width: 100vw;
-    margin: 0;
+    width: 100%;
     height: 100vh;
+    margin: 0;
+
     padding: 1rem;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 3fr;
+    /* border: solid 1px green; */
   }
   .card-face {
-    font-size: 3.5rem;
+    font-size: 3rem;
+    border: solid 1px black;
   }
   .game-board {
     order: 1;
-    height: 45vh;
+    height: 55vh;
     align-content: baseline;
-    grid-template-rows: repeat(4, 80px);
-    grid-template-columns: repeat(4, 80px);
-    column-gap: 5px;
-    /* border: solid 1px red; */
+    grid-template-rows: repeat(4, 75px);
+    grid-template-columns: repeat(4, 75px);
+    column-gap: 2px;
+    row-gap: 2px;
+    /* border: solid 1px blue; */
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
   }
   .control-panel {
+    padding: 0;
     order: 2;
-    height: 50vh;
+    height: 35vh;
+    /* border: solid 1px red; */
+    text-align: center;
+  }
+
+  .score-board-container {
+  }
+  .score-board-container h2 {
+    font-size: 1.5rem;
   }
 }

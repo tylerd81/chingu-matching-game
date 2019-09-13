@@ -2,7 +2,7 @@ import React from "react";
 
 const Card = ({ image, faceUp, cardClickHandler, index }) => {
   const clicked = () => cardClickHandler(index);
-  const backImage = "🕷";
+  const backImage = "🎲";
   /*
     The card flip is based on the tutorial from 
     https://3dtransforms.desandro.com/card-flip

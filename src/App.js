@@ -13,7 +13,7 @@ import SolveItButton from "./components/SolveItButton";
 // TODO: make control panel look nicer
 // TODO: show when the game is won
 // TODO: rating for when you finish
-// TODO: An "I Give Up!" button
+// TODO: Add timer
 
 import "./App.css";
 
@@ -28,6 +28,7 @@ function App() {
   let [numClicks, setNumClicks] = useState(0);
   let [score, setScore] = useState({ numMatches: 0, attempts: 0 });
   let [gameBoardVisible, setGameBoardVisible] = useState(true);
+  let [gameFinished, setGameFinished] = useState(false);
 
   // check for a match after 2 cards are clicked
   useEffect(() => {
@@ -120,11 +121,14 @@ function App() {
             done = true; // found a card that is not face up
 
             //flip this card over and find its match
-            let matchIndex = cardIndex + 1;
+            let matchIndex = 0; //cardIndex + 1;
             let found = false;
 
             while (matchIndex < deck.length && !found) {
-              if (deck[cardIndex].value === deck[matchIndex].value) {
+              if (
+                deck[cardIndex].value === deck[matchIndex].value &&
+                cardIndex !== matchIndex
+              ) {
                 found = true;
               } else {
                 matchIndex++;
