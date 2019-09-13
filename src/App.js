@@ -102,24 +102,27 @@ function App() {
 
   const solveGame = () => {
     let cardIndex = 0;
-    let ticks = 0;
+    const solveDelay = 700; // milliseconds
+
+    // set an interval to flip each pair over. Once the end of the
+    // deck is reached, the timer will be killed.
+
     const timerId = setInterval(() => {
-      ticks++;
-      if (ticks > 100) {
-        clearInterval(timerId);
-      }
-      console.log("tick");
       if (cardIndex === deck.length) {
         clearInterval(timerId);
       } else {
         let done = false;
-        while (!done) {
+        while (!done && cardIndex < deck.length) {
           let card = deck[cardIndex];
+
+          // check if the card is not face up
           if (typeof card !== "undefined" && !card.faceUp) {
-            done = true;
+            done = true; // found a card that is not face up
+
             //flip this card over and find its match
             let matchIndex = cardIndex + 1;
             let found = false;
+
             while (matchIndex < deck.length && !found) {
               if (deck[cardIndex].value === deck[matchIndex].value) {
                 found = true;
@@ -127,6 +130,7 @@ function App() {
                 matchIndex++;
               }
             }
+
             if (found) {
               const updatedDeck = [...deck];
               updatedDeck[matchIndex].faceUp = true;
@@ -135,11 +139,11 @@ function App() {
             }
             cardIndex++;
           } else {
-            cardIndex++;
+            cardIndex++; // card was not face down, so go to the next card
           }
         }
       }
-    }, 500);
+    }, solveDelay);
     console.log("Solving game");
   };
 
