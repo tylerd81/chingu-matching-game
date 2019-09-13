@@ -2,7 +2,7 @@ import React from "react";
 
 const NewGameButton = ({ newGameHandler }) => {
   return (
-    <button onClick={newGameHandler} type="button" className="new-game-button">
+    <button onClick={newGameHandler} type="button" className="game-button">
       New Game
     </button>
   );

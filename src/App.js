@@ -5,6 +5,8 @@ import createDeck from "./game-items/deck";
 import Scoreboard from "./components/Scoreboard";
 import ControlPanel from "./components/layout/ControlPanel";
 import NewGameButton from "./components/NewGameButton";
+import ScoreLevel from "./components/ScoreLevel";
+import SolveItButton from "./components/SolveItButton";
 
 // TODO: add the PropTypes
 // TODO: use context to clean this up
@@ -64,8 +66,10 @@ function App() {
         setScore({ ...score, numMatches: newScore, attempts });
       } else {
         // set the flipped cards back over
-        // use setTimeout() so that the CSS transition has time to finish. Otherwise
-        // the state is just set right away and the second card never flips over.
+        // use setTimeout() so that the CSS transition has time to finish.
+        // When the second card is clicked it should start the css transition, but
+        // if the state changes too fast the transition never finishes)
+
         setTimeout(() => {
           const updatedDeck = [...deck];
           updatedDeck[cardsClicked[0]].faceUp = false;
@@ -96,12 +100,56 @@ function App() {
     setNumClicks(0);
   };
 
+  const solveGame = () => {
+    let cardIndex = 0;
+    let ticks = 0;
+    const timerId = setInterval(() => {
+      ticks++;
+      if (ticks > 100) {
+        clearInterval(timerId);
+      }
+      console.log("tick");
+      if (cardIndex === deck.length) {
+        clearInterval(timerId);
+      } else {
+        let done = false;
+        while (!done) {
+          let card = deck[cardIndex];
+          if (typeof card !== "undefined" && !card.faceUp) {
+            done = true;
+            //flip this card over and find its match
+            let matchIndex = cardIndex + 1;
+            let found = false;
+            while (matchIndex < deck.length && !found) {
+              if (deck[cardIndex].value === deck[matchIndex].value) {
+                found = true;
+              } else {
+                matchIndex++;
+              }
+            }
+            if (found) {
+              const updatedDeck = [...deck];
+              updatedDeck[matchIndex].faceUp = true;
+              updatedDeck[cardIndex].faceUp = true;
+              setDeck(updatedDeck);
+            }
+            cardIndex++;
+          } else {
+            cardIndex++;
+          }
+        }
+      }
+    }, 500);
+    console.log("Solving game");
+  };
+
   return (
     <Container>
       <ControlPanel>
-        <h1 className="game-logo">Matching Game</h1>
         <Scoreboard matches={score.numMatches} attempts={score.attempts} />
+        <ScoreLevel attempts={score.attempts} />
         <NewGameButton newGameHandler={startNewGame} />
+        <SolveItButton clickHandler={solveGame} />
       </ControlPanel>
       <GameBoard
         deck={deck}

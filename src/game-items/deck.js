@@ -1,4 +1,4 @@
-const images = ["👻", "💀", "🐭", "⚰️", "🦇", "🧟‍", "👽", "🧛‍"];
+const images = ["👻", "💀", "🐭", "🛸", "🦇", "🧟‍", "👽", "🧛‍"];
 
 // the deck is an array of objects of the form:
 // { image, value, index, faceUp }
