@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Container from "./components/layout/Container";
 import GameBoard from "./components/GameBoard";
 import createDeck from "./game-items/deck";
@@ -8,7 +8,7 @@ import NewGameButton from "./components/NewGameButton";
 import ScoreLevel from "./components/ScoreLevel";
 import SolveItButton from "./components/SolveItButton";
 
-import GameState from "./context/GameState";
+import GameContext from "./context/gameContext";
 
 // TODO: add the PropTypes
 // TODO: use context to clean this up
@@ -28,10 +28,14 @@ function App() {
   // are clicked.
 
   let [cardsClicked, setCardsClicked] = useState([]);
-  let [numClicks, setNumClicks] = useState(0);
+  //let [numClicks, setNumClicks] = useState(0);
   let [score, setScore] = useState({ numMatches: 0, attempts: 0 });
   let [gameBoardVisible, setGameBoardVisible] = useState(true);
   let [gameFinished, setGameFinished] = useState(false);
+
+  // Start of new context stuff -- move all useState() to context
+  const gameContext = useContext(GameContext);
+  const { numClicks, setNumClicks } = gameContext;
 
   // check for a match after 2 cards are clicked
   useEffect(() => {
@@ -155,21 +159,19 @@ function App() {
   };
 
   return (
-    <GameState>
-      <Container>
-        <ControlPanel>
-          <Scoreboard matches={score.numMatches} attempts={score.attempts} />
-          <ScoreLevel attempts={score.attempts} />
-          <NewGameButton newGameHandler={startNewGame} />
-          <SolveItButton clickHandler={solveGame} />
-        </ControlPanel>
-        <GameBoard
-          deck={deck}
-          cardClickHandler={cardClick}
-          visible={gameBoardVisible}
-        />
-      </Container>
-    </GameState>
+    <Container>
+      <ControlPanel>
+        <Scoreboard matches={score.numMatches} attempts={score.attempts} />
+        <ScoreLevel attempts={score.attempts} />
+        <NewGameButton newGameHandler={startNewGame} />
+        <SolveItButton clickHandler={solveGame} />
+      </ControlPanel>
+      <GameBoard
+        deck={deck}
+        cardClickHandler={cardClick}
+        visible={gameBoardVisible}
+      />
+    </Container>
   );
 }
 

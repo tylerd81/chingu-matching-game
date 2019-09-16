@@ -5,12 +5,7 @@ const ControlPanel = props => {
   const gameContext = useContext(GameContext);
   const { gameName } = gameContext;
 
-  return (
-    <div className="control-panel">
-      <h3>{gameName}</h3>
-      {props.children}
-    </div>
-  );
+  return <div className="control-panel">{props.children}</div>;
 };
 
 export default ControlPanel;
