@@ -8,6 +8,8 @@ import NewGameButton from "./components/NewGameButton";
 import ScoreLevel from "./components/ScoreLevel";
 import SolveItButton from "./components/SolveItButton";
 
+import GameState from "./context/GameState";
+
 // TODO: add the PropTypes
 // TODO: use context to clean this up
 // TODO: make control panel look nicer
@@ -153,19 +155,21 @@ function App() {
   };
 
   return (
-    <Container>
-      <ControlPanel>
-        <Scoreboard matches={score.numMatches} attempts={score.attempts} />
-        <ScoreLevel attempts={score.attempts} />
-        <NewGameButton newGameHandler={startNewGame} />
-        <SolveItButton clickHandler={solveGame} />
-      </ControlPanel>
-      <GameBoard
-        deck={deck}
-        cardClickHandler={cardClick}
-        visible={gameBoardVisible}
-      />
-    </Container>
+    <GameState>
+      <Container>
+        <ControlPanel>
+          <Scoreboard matches={score.numMatches} attempts={score.attempts} />
+          <ScoreLevel attempts={score.attempts} />
+          <NewGameButton newGameHandler={startNewGame} />
+          <SolveItButton clickHandler={solveGame} />
+        </ControlPanel>
+        <GameBoard
+          deck={deck}
+          cardClickHandler={cardClick}
+          visible={gameBoardVisible}
+        />
+      </Container>
+    </GameState>
   );
 }
 
