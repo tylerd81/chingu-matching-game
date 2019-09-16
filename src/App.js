@@ -13,6 +13,7 @@ import SolveItButton from "./components/SolveItButton";
 // TODO: make control panel look nicer
 // TODO: show when the game is won
 // TODO: rating for when you finish
+// TODO: Add a finished game screen - move new game button there.
 // TODO: Add timer
 
 import "./App.css";
