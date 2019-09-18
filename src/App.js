@@ -27,15 +27,22 @@ function App() {
   // cardsClicked is an array used to keep track of the index of the cards that
   // are clicked.
 
-  let [cardsClicked, setCardsClicked] = useState([]);
+  // let [cardsClicked, setCardsClicked] = useState([]);
   //let [numClicks, setNumClicks] = useState(0);
-  let [score, setScore] = useState({ numMatches: 0, attempts: 0 });
+  // let [score, setScore] = useState({ numMatches: 0, attempts: 0 });
   let [gameBoardVisible, setGameBoardVisible] = useState(true);
   let [gameFinished, setGameFinished] = useState(false);
 
   // Start of new context stuff -- move all useState() to context
   const gameContext = useContext(GameContext);
-  const { numClicks, setNumClicks } = gameContext;
+  const {
+    numClicks,
+    setNumClicks,
+    setScore,
+    score,
+    setCardsClicked,
+    cardsClicked
+  } = gameContext;
 
   // check for a match after 2 cards are clicked
   useEffect(() => {
@@ -71,7 +78,7 @@ function App() {
       if (firstCard.value === secondCard.value) {
         console.log("Cards Are A Match!");
         const newScore = score.numMatches + 1;
-        setScore({ ...score, numMatches: newScore, attempts });
+        setScore({ numMatches: newScore, attempts });
       } else {
         // set the flipped cards back over
         // use setTimeout() so that the CSS transition has time to finish.

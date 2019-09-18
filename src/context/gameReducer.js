@@ -1,4 +1,4 @@
-import { SET_NUM_CLICKS } from "./types";
+import { SET_NUM_CLICKS, SET_SCORE, SET_CARDS_CLICKED } from "./types";
 
 export default (state, action) => {
   switch (action.type) {
@@ -8,6 +8,19 @@ export default (state, action) => {
         ...state,
         numClicks: action.payload
       };
+
+    case SET_SCORE:
+      return {
+        ...state,
+        score: action.payload
+      };
+
+    case SET_CARDS_CLICKED:
+      return {
+        ...state,
+        cardsClicked: action.payload
+      };
+
     default:
       console.log("default reducer function");
       return state;
