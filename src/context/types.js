@@ -1,3 +1,7 @@
 export const SET_NUM_CLICKS = "SET_NUM_CLICKS";
 export const SET_SCORE = "SET_SCORE";
 export const SET_CARDS_CLICKED = "SET_CARDS_CLICKED";
+export const SET_GAME_BOARD_VISIBLE = "SET_GAME_BOARD_VISIBLE";
+export const SET_CARD_FACE_UP = "SET_CARD_FACE_UP";
+export const SET_CARD_FACE_DOWN = "SET_CARD_FACE_DOWN";
+export const SET_DECK = "SET_DECK";

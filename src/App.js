@@ -10,38 +10,35 @@ import SolveItButton from "./components/SolveItButton";
 
 import GameContext from "./context/gameContext";
 
-// TODO: add the PropTypes
-// TODO: use context to clean this up
-// TODO: make control panel look nicer
-// TODO: show when the game is won
-// TODO: rating for when you finish
 // TODO: Add a finished game screen - move new game button there.
 // TODO: Add timer
+// TODO: determine when solve it button was pressed for showing score on end of game screen
+// TODO: rating for when you finish
+
+// TODO: add the PropTypes
+// TODO: make control panel look nicer
 
 import "./App.css";
 
 function App() {
-  const [deck, setDeck] = useState(createDeck());
   const transitionDelay = 1500; // number of miliseconds for the card flip transition
 
-  // cardsClicked is an array used to keep track of the index of the cards that
-  // are clicked.
+  // let [gameFinished, setGameFinished] = useState(false);
 
-  // let [cardsClicked, setCardsClicked] = useState([]);
-  //let [numClicks, setNumClicks] = useState(0);
-  // let [score, setScore] = useState({ numMatches: 0, attempts: 0 });
-  let [gameBoardVisible, setGameBoardVisible] = useState(true);
-  let [gameFinished, setGameFinished] = useState(false);
-
-  // Start of new context stuff -- move all useState() to context
   const gameContext = useContext(GameContext);
   const {
-    numClicks,
-    setNumClicks,
     setScore,
-    score,
+    setNumClicks,
     setCardsClicked,
-    cardsClicked
+    setGameBoardVisible,
+    setCardFaceUp,
+    setCardFaceDown,
+    createNewDeck,
+    numClicks,
+    score,
+    cardsClicked,
+    gameBoardVisible,
+    deck
   } = gameContext;
 
   // check for a match after 2 cards are clicked
@@ -58,38 +55,29 @@ function App() {
     if (deck[cardIndex].faceUp === true) {
       return;
     }
-
-    const updatedDeck = [...deck];
-    updatedDeck[cardIndex].faceUp = true;
-
-    setDeck(updatedDeck);
+    setCardFaceUp(cardIndex);
     setNumClicks(numClicks + 1);
     setCardsClicked([...cardsClicked, cardIndex]);
   };
 
   const checkForMatch = () => {
-    const attempts = numClicks % 2 === 0 ? score.attempts + 1 : score.attempts; // add an attempt every two clicks
-    console.log(attempts);
-    console.log(score);
+    // add an attempt every two clicks
+    const attempts = numClicks % 2 === 0 ? score.attempts + 1 : score.attempts;
     if (numClicks === 2) {
       const firstCard = deck[cardsClicked[0]];
       const secondCard = deck[cardsClicked[1]];
 
       if (firstCard.value === secondCard.value) {
-        console.log("Cards Are A Match!");
-        const newScore = score.numMatches + 1;
-        setScore({ numMatches: newScore, attempts });
+        setScore({ numMatches: score.numMatches + 1, attempts });
       } else {
         // set the flipped cards back over
         // use setTimeout() so that the CSS transition has time to finish.
         // When the second card is clicked it should start the css transition, but
-        // if the state changes too fast the transition never finishes)
+        // if the state changes too fast the transition never finishes.
 
         setTimeout(() => {
-          const updatedDeck = [...deck];
-          updatedDeck[cardsClicked[0]].faceUp = false;
-          updatedDeck[cardsClicked[1]].faceUp = false;
-          setDeck(updatedDeck);
+          setCardFaceDown(cardsClicked[0]);
+          setCardFaceDown(cardsClicked[1]);
         }, transitionDelay);
         setScore({ ...score, attempts });
       }
@@ -99,11 +87,11 @@ function App() {
   };
 
   const startNewGame = () => {
-    setGameBoardVisible(false);
+    setGameBoardVisible(false); // hide the board while shuffling
     resetNumClicks();
-    setDeck(createDeck());
+    createNewDeck();
     resetScore();
-    setTimeout(() => setGameBoardVisible(true), 500);
+    setTimeout(() => setGameBoardVisible(true), 500); // reshow the board
   };
 
   const resetScore = () => {
@@ -150,10 +138,8 @@ function App() {
             }
 
             if (found) {
-              const updatedDeck = [...deck];
-              updatedDeck[matchIndex].faceUp = true;
-              updatedDeck[cardIndex].faceUp = true;
-              setDeck(updatedDeck);
+              setCardFaceUp(matchIndex);
+              setCardFaceUp(cardIndex);
             }
             cardIndex++;
           } else {
@@ -162,7 +148,6 @@ function App() {
         }
       }
     }, solveDelay);
-    console.log("Solving game");
   };
 
   return (

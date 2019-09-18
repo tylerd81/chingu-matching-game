@@ -20,13 +20,11 @@ function createDeck() {
       {
         image: images[i],
         value: cardValue,
-        index: cardIndex++,
         faceUp: false
       },
       {
         image: images[i],
         value: cardValue,
-        index: cardIndex++,
         faceUp: false
       }
     );
