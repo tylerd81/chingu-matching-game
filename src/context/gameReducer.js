@@ -5,7 +5,8 @@ import {
   SET_GAME_BOARD_VISIBLE,
   SET_CARD_FACE_UP,
   SET_CARD_FACE_DOWN,
-  SET_DECK
+  SET_DECK,
+  SET_GAME_FINISHED
 } from "./types";
 
 export default (state, action) => {
@@ -60,6 +61,12 @@ export default (state, action) => {
       return {
         ...state,
         deck: action.payload
+      };
+
+    case SET_GAME_FINISHED:
+      return {
+        ...state,
+        gameFinished: action.payload
       };
 
     default:

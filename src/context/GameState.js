@@ -9,7 +9,8 @@ import {
   SET_GAME_BOARD_VISIBLE,
   SET_CARD_FACE_DOWN,
   SET_CARD_FACE_UP,
-  SET_DECK
+  SET_DECK,
+  SET_GAME_FINISHED
 } from "./types";
 
 const GameState = props => {
@@ -57,6 +58,10 @@ const GameState = props => {
     dispatch({ type: SET_GAME_BOARD_VISIBLE, payload: visible });
   };
 
+  const setGameFinished = finished => {
+    dispatch({ type: SET_GAME_FINISHED, payload: finished });
+  };
+
   return (
     <GameContext.Provider
       value={{
@@ -66,12 +71,14 @@ const GameState = props => {
         setGameBoardVisible,
         setCardFaceUp,
         setCardFaceDown,
+        setGameFinished,
         createNewDeck,
         numClicks: state.numClicks,
         score: state.score,
         cardsClicked: state.cardsClicked,
         gameBoardVisible: state.gameBoardVisible,
-        deck: state.deck
+        deck: state.deck,
+        gameFinished: state.gameFinished
       }}
     >
       {props.children}

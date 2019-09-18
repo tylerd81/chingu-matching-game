@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import Container from "./components/layout/Container";
 import GameBoard from "./components/GameBoard";
-import createDeck from "./game-items/deck";
 import Scoreboard from "./components/Scoreboard";
 import ControlPanel from "./components/layout/ControlPanel";
 import NewGameButton from "./components/NewGameButton";
 import ScoreLevel from "./components/ScoreLevel";
 import SolveItButton from "./components/SolveItButton";
-
+import GameOverDialog from "./components/GameOverDialog";
 import GameContext from "./context/gameContext";
 
 // TODO: Add a finished game screen - move new game button there.
@@ -33,12 +32,14 @@ function App() {
     setGameBoardVisible,
     setCardFaceUp,
     setCardFaceDown,
+    setGameFinished,
     createNewDeck,
     numClicks,
     score,
     cardsClicked,
     gameBoardVisible,
-    deck
+    deck,
+    gameFinished
   } = gameContext;
 
   // check for a match after 2 cards are clicked
@@ -88,6 +89,7 @@ function App() {
 
   const startNewGame = () => {
     setGameBoardVisible(false); // hide the board while shuffling
+    setGameFinished(false);
     resetNumClicks();
     createNewDeck();
     resetScore();
@@ -112,6 +114,7 @@ function App() {
 
     const timerId = setInterval(() => {
       if (cardIndex === deck.length) {
+        setGameFinished(true);
         clearInterval(timerId);
       } else {
         let done = false;
@@ -155,7 +158,7 @@ function App() {
       <ControlPanel>
         <Scoreboard matches={score.numMatches} attempts={score.attempts} />
         <ScoreLevel attempts={score.attempts} />
-        <NewGameButton newGameHandler={startNewGame} />
+
         <SolveItButton clickHandler={solveGame} />
       </ControlPanel>
       <GameBoard
@@ -163,6 +166,7 @@ function App() {
         cardClickHandler={cardClick}
         visible={gameBoardVisible}
       />
+      {gameFinished ? <GameOverDialog newGameHandler={startNewGame} /> : null}
     </Container>
   );
 }
