@@ -1,8 +1,7 @@
 const images = ["😀", "😂", "😋", "😎", "😍", "😴", "🤔", "🙄"];
 
 // the deck is an array of objects of the form:
-// { image, value, index, faceUp }
-// index is the position of the card in the array.
+// { image, value, faceUp }
 
 // value is the actual value of the card that is used to determine if
 // two cards match. There are two of each card in the deck, so there are
@@ -11,7 +10,6 @@ const images = ["😀", "😂", "😋", "😎", "😍", "😴", "🤔", "🙄"];
 function createDeck() {
   const cards = [];
 
-  let cardIndex = 0;
   let cardValue = 0;
 
   for (let i = 0; i < images.length; i++) {
