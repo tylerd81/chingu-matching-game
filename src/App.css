@@ -116,6 +116,7 @@ body {
   background-color: white;
   border-radius: 10px;
   margin-bottom: 1rem;
+  padding: 1rem;
 }
 .sb-matches {
   color: var(--card-front-color);

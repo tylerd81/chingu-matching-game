@@ -6,6 +6,7 @@ import ControlPanel from "./components/layout/ControlPanel";
 import SolveItButton from "./components/SolveItButton";
 import GameOverDialog from "./components/GameOverDialog";
 import GameContext from "./context/gameContext";
+import GameTimer from "./components/GameTimer";
 
 // TODO: Add timer
 // TODO: add the PropTypes
@@ -155,6 +156,7 @@ function App() {
     <Container>
       <ControlPanel>
         <Scoreboard matches={score.numMatches} attempts={score.attempts} />
+        <GameTimer />
         <SolveItButton clickHandler={solveGame} />
       </ControlPanel>
       <GameBoard

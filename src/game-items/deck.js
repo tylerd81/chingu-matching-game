@@ -7,7 +7,7 @@ const images = ["😀", "😂", "😋", "😎", "😍", "😴", "🤔", "🙄"];
 // two cards match. There are two of each card in the deck, so there are
 // always two cards with the same value.
 
-let cheater = true;
+let cheater = false;
 
 function createDeck() {
   const cards = [];
