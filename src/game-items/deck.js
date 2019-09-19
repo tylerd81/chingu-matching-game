@@ -7,6 +7,8 @@ const images = ["😀", "😂", "😋", "😎", "😍", "😴", "🤔", "🙄"];
 // two cards match. There are two of each card in the deck, so there are
 // always two cards with the same value.
 
+let cheater = true;
+
 function createDeck() {
   const cards = [];
 
@@ -29,7 +31,19 @@ function createDeck() {
     cardValue++;
   }
 
-  return shuffle(cards);
+  const shuffledCards = shuffle(cards);
+
+  if (cheater) {
+    let s = "";
+    for (let i = 0; i < shuffledCards.length; i++) {
+      if (i % 4 === 0) {
+        s += "\n";
+      }
+      s += `${shuffledCards[i].value} `;
+    }
+    console.log(s);
+  }
+  return shuffledCards;
 }
 
 function shuffle(deck) {

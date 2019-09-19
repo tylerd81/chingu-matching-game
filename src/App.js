@@ -3,26 +3,17 @@ import Container from "./components/layout/Container";
 import GameBoard from "./components/GameBoard";
 import Scoreboard from "./components/Scoreboard";
 import ControlPanel from "./components/layout/ControlPanel";
-import NewGameButton from "./components/NewGameButton";
-import ScoreLevel from "./components/ScoreLevel";
 import SolveItButton from "./components/SolveItButton";
 import GameOverDialog from "./components/GameOverDialog";
 import GameContext from "./context/gameContext";
 
-// TODO: Add a finished game screen - move new game button there.
 // TODO: Add timer
-// TODO: determine when solve it button was pressed for showing score on end of game screen
-// TODO: rating for when you finish
-
 // TODO: add the PropTypes
-// TODO: make control panel look nicer
 
 import "./App.css";
 
 function App() {
   const transitionDelay = 1500; // number of miliseconds for the card flip transition
-
-  // let [gameFinished, setGameFinished] = useState(false);
 
   const gameContext = useContext(GameContext);
   const {
@@ -33,6 +24,7 @@ function App() {
     setCardFaceUp,
     setCardFaceDown,
     setGameFinished,
+    setCheatUsed,
     createNewDeck,
     numClicks,
     score,
@@ -47,7 +39,11 @@ function App() {
     if (numClicks === 2) {
       checkForMatch();
     }
-  }, [numClicks]);
+
+    if (score.numMatches === 8) {
+      setGameFinished(true);
+    }
+  }, [numClicks, score]);
 
   // Handler for when a card is clicked. It increments the number of clicks
   // and then flips over the clicked card.
@@ -93,6 +89,7 @@ function App() {
     resetNumClicks();
     createNewDeck();
     resetScore();
+    setCheatUsed(false);
     setTimeout(() => setGameBoardVisible(true), 500); // reshow the board
   };
 
@@ -106,6 +103,7 @@ function App() {
   };
 
   const solveGame = () => {
+    setCheatUsed(true);
     let cardIndex = 0;
     const solveDelay = 700; // milliseconds
 
@@ -157,8 +155,6 @@ function App() {
     <Container>
       <ControlPanel>
         <Scoreboard matches={score.numMatches} attempts={score.attempts} />
-        <ScoreLevel attempts={score.attempts} />
-
         <SolveItButton clickHandler={solveGame} />
       </ControlPanel>
       <GameBoard

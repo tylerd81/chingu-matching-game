@@ -6,7 +6,8 @@ import {
   SET_CARD_FACE_UP,
   SET_CARD_FACE_DOWN,
   SET_DECK,
-  SET_GAME_FINISHED
+  SET_GAME_FINISHED,
+  SET_CHEAT_USED
 } from "./types";
 
 export default (state, action) => {
@@ -67,6 +68,12 @@ export default (state, action) => {
       return {
         ...state,
         gameFinished: action.payload
+      };
+
+    case SET_CHEAT_USED:
+      return {
+        ...state,
+        cheatUsed: action.payload
       };
 
     default:

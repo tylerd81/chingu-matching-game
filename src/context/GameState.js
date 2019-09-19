@@ -10,17 +10,19 @@ import {
   SET_CARD_FACE_DOWN,
   SET_CARD_FACE_UP,
   SET_DECK,
-  SET_GAME_FINISHED
+  SET_GAME_FINISHED,
+  SET_CHEAT_USED
 } from "./types";
 
 const GameState = props => {
   const initialState = {
     numClicks: 0,
-    deck: createDeck(),
+    deck: createDeck(), //TODO: gets called everytime GameState is rerendered...
     score: { numMatches: 0, attempts: 0 },
     gameBoardVisible: true,
     gameFinished: false,
-    cardsClicked: []
+    cardsClicked: [],
+    cheatUsed: false
   };
 
   const [state, dispatch] = useReducer(GameStateReducer, initialState);
@@ -62,6 +64,10 @@ const GameState = props => {
     dispatch({ type: SET_GAME_FINISHED, payload: finished });
   };
 
+  const setCheatUsed = cheat => {
+    dispatch({ type: SET_CHEAT_USED, payload: cheat });
+  };
+
   return (
     <GameContext.Provider
       value={{
@@ -72,13 +78,15 @@ const GameState = props => {
         setCardFaceUp,
         setCardFaceDown,
         setGameFinished,
+        setCheatUsed,
         createNewDeck,
         numClicks: state.numClicks,
         score: state.score,
         cardsClicked: state.cardsClicked,
         gameBoardVisible: state.gameBoardVisible,
         deck: state.deck,
-        gameFinished: state.gameFinished
+        gameFinished: state.gameFinished,
+        cheatUsed: state.cheatUsed
       }}
     >
       {props.children}

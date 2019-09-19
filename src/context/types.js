@@ -6,3 +6,4 @@ export const SET_CARD_FACE_UP = "SET_CARD_FACE_UP";
 export const SET_CARD_FACE_DOWN = "SET_CARD_FACE_DOWN";
 export const SET_DECK = "SET_DECK";
 export const SET_GAME_FINISHED = "SET_GAME_FINISHED";
+export const SET_CHEAT_USED = "SET_CHEAT_USED";
