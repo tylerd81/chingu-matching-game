@@ -4,8 +4,15 @@ import PropTypes from "prop-types";
 const Scoreboard = ({ matches, attempts }) => {
   return (
     <div className="score-board-container">
-      <h2 className="sb-matches">Matches: {matches}</h2>
-      <h2 className="sb-tries">Attempts: {attempts}</h2>
+      <div className="score-item">
+        <h2>Matches</h2>
+        <h2 className="sb-matches">{matches}</h2>
+      </div>
+
+      <div className="score-item">
+        <h2>Attempts:</h2>
+        <h2 className="sb-tries">{attempts}</h2>
+      </div>
     </div>
   );
 };

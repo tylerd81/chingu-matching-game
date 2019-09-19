@@ -107,7 +107,22 @@ body {
 }
 
 .score-board-container h2 {
-  font-size: 3rem;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.score-item {
+  border: solid 2px black;
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+.sb-matches {
+  color: var(--card-front-color);
+}
+
+.sb-tries {
+  color: var(--card-front-color);
 }
 
 .game-button {
@@ -141,6 +156,7 @@ body {
   left: 50%;
   background-color: white;
   text-align: center;
+  box-shadow: 5px 5px 5px #222;
 }
 
 @media (max-width: 700px) {
@@ -187,5 +203,6 @@ body {
 
   .game-over-dialog {
     width: 95%;
+    top: 30%;
   }
 }
