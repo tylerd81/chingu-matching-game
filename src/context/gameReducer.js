@@ -7,7 +7,8 @@ import {
   SET_CARD_FACE_DOWN,
   SET_DECK,
   SET_GAME_FINISHED,
-  SET_CHEAT_USED
+  SET_CHEAT_USED,
+  SET_TICKS
 } from "./types";
 
 export default (state, action) => {
@@ -74,6 +75,12 @@ export default (state, action) => {
       return {
         ...state,
         cheatUsed: action.payload
+      };
+
+    case SET_TICKS:
+      return {
+        ...state,
+        ticks: state.ticks + action.payload
       };
 
     default:
