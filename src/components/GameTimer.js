@@ -1,25 +1,9 @@
-import React, { useEffect, useContext, useState } from "react";
-import GameContext from "../context/gameContext";
+import React from "react";
+import timeString from "../utils/timeString";
 
-const GameTimer = props => {
-  const [timerId, setTimerId] = useState();
+const GameTimer = ({ ticks }) => {
+  const ts = timeString(ticks);
 
-  const gameContext = useContext(GameContext);
-  const { setTicks, ticks } = gameContext;
-
-  useEffect(() => {
-    const timerId = setInterval(() => {
-      setTicks(1);
-    }, 1000);
-
-    setTimerId(timerId);
-  }, []);
-
-  if (props.paused === true) {
-    clearInterval(timerId);
-    setTimerId(null);
-  }
-
-  return <div>{ticks}</div>;
+  return <div className="game-timer">{ts}</div>;
 };
 export default GameTimer;

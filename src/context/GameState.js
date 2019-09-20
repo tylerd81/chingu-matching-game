@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer } from "react";
 import GameContext from "./gameContext";
 import createDeck from "../game-items/deck";
 import GameStateReducer from "./gameReducer";
@@ -15,16 +15,19 @@ import {
   SET_TICKS
 } from "./types";
 
+let gameDeck = createDeck(); // for the initial deck
+
 const GameState = props => {
   const initialState = {
     numClicks: 0,
-    deck: createDeck(), //TODO: gets called everytime GameState is rerendered...
+    deck: gameDeck, //TODO: gets called everytime GameState is rerendered...
     score: { numMatches: 0, attempts: 0 },
     gameBoardVisible: true,
     gameFinished: false,
     cardsClicked: [],
     cheatUsed: false,
-    ticks: 0
+    ticks: 0,
+    timerPaused: true
   };
 
   const [state, dispatch] = useReducer(GameStateReducer, initialState);
@@ -93,8 +96,7 @@ const GameState = props => {
         gameBoardVisible: state.gameBoardVisible,
         deck: state.deck,
         gameFinished: state.gameFinished,
-        cheatUsed: state.cheatUsed,
-        ticks: state.ticks
+        cheatUsed: state.cheatUsed
       }}
     >
       {props.children}

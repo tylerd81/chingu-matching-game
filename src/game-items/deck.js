@@ -34,6 +34,7 @@ function createDeck() {
   const shuffledCards = shuffle(cards);
 
   if (cheater) {
+    // display the array of card values in the console for testing
     let s = "";
     for (let i = 0; i < shuffledCards.length; i++) {
       if (i % 4 === 0) {

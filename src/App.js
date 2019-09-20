@@ -8,13 +8,13 @@ import GameOverDialog from "./components/GameOverDialog";
 import GameContext from "./context/gameContext";
 import GameTimer from "./components/GameTimer";
 
-// TODO: Add timer
-// TODO: add the PropTypes
-
 import "./App.css";
 
 function App() {
   const transitionDelay = 1500; // number of miliseconds for the card flip transition
+
+  const [ticks, setTicks] = useState(0);
+  const [timerId, setTimerId] = useState();
 
   const gameContext = useContext(GameContext);
   const {
@@ -35,7 +35,29 @@ function App() {
     gameFinished
   } = gameContext;
 
+  // setup the timer
+  const timerTick = () => {
+    setTicks(ticks => ticks + 1);
+  };
+
+  const startTimer = () => {
+    const t = setInterval(timerTick, 1000);
+    setTimerId(t);
+  };
+
+  const stopTimer = () => {
+    clearInterval(timerId);
+  };
+
+  const resetTimer = () => {
+    setTicks(0);
+  };
+
+  // eslint-disable-next-line
+  useEffect(() => startTimer(), []);
+
   // check for a match after 2 cards are clicked
+
   useEffect(() => {
     if (numClicks === 2) {
       checkForMatch();
@@ -43,7 +65,9 @@ function App() {
 
     if (score.numMatches === 8) {
       setGameFinished(true);
+      stopTimer();
     }
+    // eslint-disable-next-line
   }, [numClicks, score]);
 
   // Handler for when a card is clicked. It increments the number of clicks
@@ -90,6 +114,8 @@ function App() {
     resetNumClicks();
     createNewDeck();
     resetScore();
+    resetTimer();
+    startTimer();
     setCheatUsed(false);
     setTimeout(() => setGameBoardVisible(true), 500); // reshow the board
   };
@@ -105,6 +131,8 @@ function App() {
 
   const solveGame = () => {
     setCheatUsed(true);
+    stopTimer();
+
     let cardIndex = 0;
     const solveDelay = 700; // milliseconds
 
@@ -156,7 +184,7 @@ function App() {
     <Container>
       <ControlPanel>
         <Scoreboard matches={score.numMatches} attempts={score.attempts} />
-        <GameTimer />
+        <GameTimer ticks={ticks} />
         <SolveItButton clickHandler={solveGame} />
       </ControlPanel>
       <GameBoard
@@ -164,7 +192,9 @@ function App() {
         cardClickHandler={cardClick}
         visible={gameBoardVisible}
       />
-      {gameFinished ? <GameOverDialog newGameHandler={startNewGame} /> : null}
+      {gameFinished ? (
+        <GameOverDialog ticks={ticks} newGameHandler={startNewGame} />
+      ) : null}
     </Container>
   );
 }

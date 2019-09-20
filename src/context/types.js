@@ -8,3 +8,5 @@ export const SET_DECK = "SET_DECK";
 export const SET_GAME_FINISHED = "SET_GAME_FINISHED";
 export const SET_CHEAT_USED = "SET_CHEAT_USED";
 export const SET_TICKS = "SET_TICKS";
+export const PAUSE_TIMER = "PAUSE_TIMER";
+export const RESET_TIMER = "RESET_TIMER";
